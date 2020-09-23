@@ -7,6 +7,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
+
+import java.util.List;
 
 import static java.util.Collections.emptyList;
 
@@ -25,5 +28,22 @@ public class ApplicationUserService implements UserDetailsService {
             throw new UsernameNotFoundException(username);
         }
         return new User(applicationUser.getUsername(), applicationUser.getPassword(), emptyList());
+    }
+
+    public List<ApplicationUser> getAllUsers(){
+        return applicationUserRepository.findAll();
+    }
+
+    public ApplicationUser getSingleUser(Long id){
+        return applicationUserRepository.getOne(id);
+    }
+
+    public ApplicationUser editUser(ApplicationUser applicationUser, Long id){
+        applicationUser.setId(id);
+        return applicationUserRepository.save(applicationUser);
+    }
+
+    public void deleteUser(Long id){
+        applicationUserRepository.deleteById(id);
     }
 }
