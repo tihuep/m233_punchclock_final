@@ -1,7 +1,9 @@
 package ch.zli.m223.punchclock.service;
 
 import ch.zli.m223.punchclock.domain.Entry;
+import ch.zli.m223.punchclock.exception.ResourceNotFoundException;
 import ch.zli.m223.punchclock.repository.EntryRepository;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,7 +21,7 @@ public class EntryService {
     }
 
     public Entry getSingleEntry(Long id){
-        return entryRepository.getOne(id);
+        return entryRepository.findById(id).get();
     }
 
     public Entry createEntry(Entry entry) {

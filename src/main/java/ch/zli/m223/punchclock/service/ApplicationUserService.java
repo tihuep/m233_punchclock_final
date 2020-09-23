@@ -6,6 +6,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 
@@ -16,9 +17,12 @@ import static java.util.Collections.emptyList;
 @Service
 public class ApplicationUserService implements UserDetailsService {
     private ApplicationUserRepository applicationUserRepository;
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public ApplicationUserService(ApplicationUserRepository applicationUserRepository) {
+    public ApplicationUserService(ApplicationUserRepository applicationUserRepository,
+                                  BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.applicationUserRepository = applicationUserRepository;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
     @Override
@@ -30,12 +34,21 @@ public class ApplicationUserService implements UserDetailsService {
         return new User(applicationUser.getUsername(), applicationUser.getPassword(), emptyList());
     }
 
+    public ApplicationUser createUser(ApplicationUser applicationUser){
+        applicationUser.setPassword(bCryptPasswordEncoder.encode(applicationUser.getPassword()));
+        return applicationUserRepository.save(applicationUser);
+    }
+
     public List<ApplicationUser> getAllUsers(){
         return applicationUserRepository.findAll();
     }
 
     public ApplicationUser getSingleUser(Long id){
-        return applicationUserRepository.getOne(id);
+        return applicationUserRepository.findById(id).get();
+    }
+
+    public ApplicationUser getUserByUsername(String username){
+        return applicationUserRepository.findByUsername(username);
     }
 
     public ApplicationUser editUser(ApplicationUser applicationUser, Long id){

@@ -6,9 +6,11 @@ import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 @Entity
+@Table(name="ENTRY")
 public class Entry {
 
     @Id
@@ -17,19 +19,22 @@ public class Entry {
 
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     @JsonSerialize(using = LocalDateTimeSerializer.class)
-    @Column(nullable = false)
+    @NotNull
     private LocalDateTime startTime;
 
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     @JsonSerialize(using = LocalDateTimeSerializer.class)
-    @Column(nullable = false)
+    @NotNull
     private LocalDateTime endTime;
-/*
+
     @ManyToOne
     @JoinColumn(name = "category_id")
+    @NotNull
     private Category category;
-*/
-    //private ApplicationUser user;
+
+    @ManyToOne
+    @JoinColumn(name = "application_user_id")
+    private ApplicationUser user;
 
     public Long getId() {
         return id;
@@ -54,7 +59,7 @@ public class Entry {
     public void setEndTime(LocalDateTime endTime) {
         this.endTime = endTime;
     }
-/*
+
     public Category getCategory() {
         return category;
     }
@@ -69,5 +74,5 @@ public class Entry {
 
     public void setUser(ApplicationUser user) {
         this.user = user;
-    }*/
+    }
 }

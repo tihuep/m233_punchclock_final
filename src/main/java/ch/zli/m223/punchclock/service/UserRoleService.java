@@ -23,7 +23,7 @@ public class UserRoleService {
     }
 
     public UserRole getSingleUserRole(Long id){
-        return userRoleRepository.getOne(id);
+        return userRoleRepository.findById(id).get();
     }
 
     public void deleteUserRole(Long id){

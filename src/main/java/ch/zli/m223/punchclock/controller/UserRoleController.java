@@ -25,16 +25,19 @@ public class UserRoleController {
     }
 
     @GetMapping
+    @ResponseStatus(HttpStatus.OK)
     public List<UserRole> getAllUserRoles(){
         return userRoleService.getAllUserRoles();
     }
 
     @GetMapping("{id}")
+    @ResponseStatus(HttpStatus.OK)
     public UserRole getSingleUserRole(@PathVariable Long id){
         return userRoleService.getSingleUserRole(id);
     }
 
     @DeleteMapping("{id}")
+    @ResponseStatus(HttpStatus.OK)
     public void deleteUserRole(@PathVariable Long id){
         userRoleService.deleteUserRole(id);
     }

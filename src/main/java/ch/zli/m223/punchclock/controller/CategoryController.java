@@ -25,16 +25,20 @@ public class CategoryController {
     }
 
     @GetMapping
+    @ResponseStatus(HttpStatus.OK)
     public List<Category> getAllCategories(){
         return categoryService.getAllCategories();
     }
 
     @GetMapping("{id}")
+    @ResponseStatus(HttpStatus.OK)
     public Category getSingleCategory(@PathVariable Long id){
-        return categoryService.getSingleCategory(id);
+        Category category = categoryService.getSingleCategory(id);
+        return category;
     }
 
     @DeleteMapping("{id}")
+    @ResponseStatus(HttpStatus.OK)
     public void deleteCategory(@PathVariable Long id){
         categoryService.deleteCategory(id);
     }

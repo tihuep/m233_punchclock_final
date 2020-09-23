@@ -1,10 +1,12 @@
 package ch.zli.m223.punchclock.service;
 
 import ch.zli.m223.punchclock.domain.Category;
+import ch.zli.m223.punchclock.exception.ResourceNotFoundException;
 import ch.zli.m223.punchclock.repository.CategoryRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CategoryService {
@@ -23,7 +25,7 @@ public class CategoryService {
     }
 
     public Category getSingleCategory(Long id){
-        return categoryRepository.getOne(id);
+        return categoryRepository.findById(id).get();
     }
 
     public void deleteCategory(Long id){
