@@ -7,6 +7,7 @@ Folgende Schritte befolgen um loszulegen:
 1. Ins Verzeichnis der Applikation wechseln und über die Kommandozeile mit `./gradlew bootRun` oder `./gradlew.bat bootRun` starten
 1. Unittest mit `./gradlew test` oder `./gradlew.bat test` ausführen.
 1. Ein ausführbares JAR kann mit `./gradlew bootJar` oder `./gradlew.bat bootJar` erstellt werden.
+5. Die Applikation kann auch ausgeführt werden direkt im IntelliJ mit ch.zli.m223.punchclock.PunchclockApplication als Main Class und im punchclock.main module mit der JDK 11.
 
 Folgende Dienste stehen während der Ausführung im Profil `dev` zur Verfügung:
 - REST-Schnittstelle der Applikation: http://localhost:8081
