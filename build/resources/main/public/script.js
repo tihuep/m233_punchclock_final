@@ -54,8 +54,11 @@ const loadLoginPage = () => {
     var oSignUpPage = document.querySelector('#signUpPage');
     oSignUpPage.style.display = "none";
 
-    var oLoginPage = document.querySelector('#createEntryPage');
-    oLoginPage.style.display = "none";
+    var oEntryPage = document.querySelector('#createEntryPage');
+    oEntryPage.style.display = "none";
+
+    var oEditUserPage = document.querySelector('#editUserPage');
+    oEditUserPage.style.display = "none";
 }
 
 
@@ -72,8 +75,11 @@ const loadSignUpPage = (e) => {
     var oSignUpPage = document.querySelector('#signUpPage');
     oSignUpPage.style.display = "inline-block";
 
-    var oLoginPage = document.querySelector('#createEntryPage');
-    oLoginPage.style.display = "none";
+    var oEntryPage = document.querySelector('#createEntryPage');
+    oEntryPage.style.display = "none";
+
+    var oEditUserPage = document.querySelector('#editUserPage');
+    oEditUserPage.style.display = "none";
 
     fetch(`${URL}/roles`, {
         method: 'GET',
@@ -140,8 +146,11 @@ const loadEntryPage = () => {
     var oSignUpPage = document.querySelector('#signUpPage');
     oSignUpPage.style.display = "none";
 
-    var oLoginPage = document.querySelector('#createEntryPage');
-    oLoginPage.style.display = "inline-block";
+    var oEntryPage = document.querySelector('#createEntryPage');
+    oEntryPage.style.display = "inline-block";
+
+    var oEditUserPage = document.querySelector('#editUserPage');
+    oEditUserPage.style.display = "none";
 
     if (!checkJWT())
         loadLoginPage();
@@ -247,6 +256,39 @@ const renderEntries = () => {
 
 
 
+//user stuff
+const showUserPage = (e) => {
+    var oLoginPage = document.querySelector('#loginPage');
+    oLoginPage.style.display = "none";
+
+    var oSignUpPage = document.querySelector('#signUpPage');
+    oSignUpPage.style.display = "none";
+
+    var oEntryPage = document.querySelector('#createEntryPage');
+    oEntryPage.style.display = "none";
+
+    var oEditUserPage = document.querySelector('#editUserPage');
+    oEditUserPage.style.display = "inline-block";
+
+    renderEditUserPage();
+};
+
+const renderEditUserPage = () => {
+    if (oUser === undefined)
+        loadLoginPage();
+
+    var oUserForm = document.querySelector('#editUserForm');
+
+
+
+
+
+};
+
+
+
+
+
 //general
 document.addEventListener('DOMContentLoaded', function(){
     const loginForm = document.querySelector('#loginForm');
@@ -262,6 +304,21 @@ document.addEventListener('DOMContentLoaded', function(){
 
     const signUpButton = document.querySelector('#signupButton');
     signUpButton.addEventListener('click', loadSignUpPage)
+
+    const showUserButton = document.querySelector('#showUserButton');
+    showUserButton.addEventListener('click', showUserPage)
+
+    const entryPageButton = document.querySelector('#entryPageButton');
+    entryPageButton.addEventListener('click', loadEntryPage)
+
+    const loginPageButton = document.querySelector('#loginPageButton');
+    loginPageButton.addEventListener('click', loadLoginPage)
+
+    const logoutButton = document.querySelector('#logoutButton');
+    logoutButton.addEventListener('click', loadLoginPage)
+
+    const logoutButton2 = document.querySelector('#logoutButton2');
+    logoutButton2.addEventListener('click', loadLoginPage)
 });
 
 const createCell = (text) => {
@@ -286,4 +343,10 @@ const createOption = (text, id) => {
 
 const checkJWT = () => {
     return sJWT !== undefined;
+}
+
+const logout = (e) => {
+    loadLoginPage();
+    oUser = undefined;
+    sJWT = undefined;
 }

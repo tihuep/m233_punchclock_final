@@ -11,6 +11,7 @@
     </head>
     <body>
         <div id="loginPage">
+            <h2>Login</h2>
             <form id="loginForm">
                 <label for="loginUsername">Username: </label>
                 <input type="text" name="username" id="loginUsername" required>
@@ -21,6 +22,8 @@
             <input type="button" id="signupButton" value="Registrieren">
         </div>
         <div id="signUpPage">
+            <h2>Registrieren</h2>
+            <input type="button" id="loginPageButton" value="Zurück">
             <form id="signUpForm">
                 <label for="signUpUsername">Username: </label>
                 <input type="text" name="username" id="signUpUsername" required>
@@ -42,6 +45,8 @@
             </form>
         </div>
         <div id="createEntryPage">
+            <h2>Einträge</h2>
+            <input type="button" id="logoutButton" value="Logout">
             <form id="createEntryForm">
                 <label for="entryStartTime">Startzeit: </label>
                 <input type="date" name="startTimeDate" id="entryStartTime" required>
@@ -71,28 +76,31 @@
                     </tr>
                 </tbody>
             </table>
-            <!--<input type="button" id="showUserButton" value="User anzeigen">-->
+            <input type="button" id="showUserButton" value="User bearbeiten">
         </div>
-        <!--<div id="userPage">
-            <form id="userForm">
-                <label for="userFormUsername">Username: </label>
-                <input type="text" name="username" id="userFormUsername" required>
-                <label for="userFormPassword">Password: </label>
-                <input type="password" name="password" id="userFormPassword" required>
-                <label for="userFormEmail">Email: </label>
-                <input type="email" name="email" id="userFormEmail">
-                <label for="userFormEmployeeId">Mitarbeiter-ID: </label>
-                <input type="text" name="employeeId" id="userFormEmployeeId">
-                <label for="userFormFirstname">Vorname: </label>
-                <input type="text" name="firstname" id="userFormFirstname">
-                <label for="userFormLastname">Nachname: </label>
-                <input type="text" name="lastname" id="userFormLastname">
-                <label for="userFormRole">Rolle: </label>
-                <select name="role" id="userFormRole" required>
+        <div id="editUserPage">
+            <h2>user bearbeiten</h2>
+            <input type="button" id="entryPageButton" value="Zurück">
+            <input type="button" id="logoutButton2" value="Logout">
+            <form id="editUserForm">
+                <label for="editUserFormUsername">Username: </label>
+                <input type="text" name="username" id="editUserFormUsername" required>
+                <label for="editUserFormPassword">Password: </label>
+                <input type="password" name="password" id="editUserFormPassword" required>
+                <label for="editUserFormEmail">Email: </label>
+                <input type="email" name="email" id="editUserFormEmail">
+                <label for="editUserFormEmployeeId">Mitarbeiter-ID: </label>
+                <input type="text" name="employeeId" id="editUserFormEmployeeId">
+                <label for="editUserFormFirstname">Vorname: </label>
+                <input type="text" name="firstname" id="editUserFormFirstname">
+                <label for="editUserFormLastname">Nachname: </label>
+                <input type="text" name="lastname" id="editUserFormLastname">
+                <label for="editUserFormRole">Rolle: </label>
+                <select name="role" id="editUserFormRole" required>
                     <option>Loading...</option>
                 </select>
-                <input type="submit" value="Registrieren" disabled/>
+                <input type="submit" value="Ändern" disabled/>
             </form>
-        </div>-->
+        </div>
     </body>
 </html>

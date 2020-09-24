@@ -23,3 +23,7 @@ table {
 #createEntryPage {
     display: none;
 }
+
+#editUserPage {
+    display: none;
+}
