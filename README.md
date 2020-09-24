@@ -1,5 +1,5 @@
 # M223: Punchclock
-Dies ist eine Beispielapplikation für das Modul M223.
+Dies ist die Abschlussprüfungsapplikation vom Modul 223.
 
 ## Loslegen
 Folgende Schritte befolgen um loszulegen:
@@ -10,4 +10,10 @@ Folgende Schritte befolgen um loszulegen:
 
 Folgende Dienste stehen während der Ausführung im Profil `dev` zur Verfügung:
 - REST-Schnittstelle der Applikation: http://localhost:8081
+- Der Default-User ist admin mit dem Passwort admin.
 - Dashboard der H2 Datenbank: http://localhost:8081/h2-console
+
+## Applikation
+In dieser Applikation können Zeiten erfasst werden von Mitarbeitern.
+Es gibt Benutzer, Einträge, Kategorien und Rollen.
+<br>Einträge und Users können im Frontend erstellt und verwaltet werden, Kategorien und Rollen müssen über manuell gefertigte Requests angelegt werden, jedoch sind standardmässig einige Kategorien und Rollen schon integriert.
