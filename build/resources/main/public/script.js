@@ -47,18 +47,27 @@ const loginHandler = (e) => {
 
 };
 
+const clearLoginPage = () => {
+    document.querySelector('#loginUsername').value = "";
+    document.querySelector('#loginPassword').value = "";
+}
+
 const loadLoginPage = () => {
     var oLoginPage = document.querySelector('#loginPage');
     oLoginPage.style.display = "inline-block";
+    clearLoginPage();
 
     var oSignUpPage = document.querySelector('#signUpPage');
     oSignUpPage.style.display = "none";
+    clearSignUpPage();
 
     var oEntryPage = document.querySelector('#createEntryPage');
     oEntryPage.style.display = "none";
+    clearEntryPage();
 
     var oEditUserPage = document.querySelector('#editUserPage');
     oEditUserPage.style.display = "none";
+    clearEditUserPage();
 }
 
 
@@ -71,15 +80,19 @@ const loadLoginPage = () => {
 const loadSignUpPage = (e) => {
     var oLoginPage = document.querySelector('#loginPage');
     oLoginPage.style.display = "none";
+    clearLoginPage();
 
     var oSignUpPage = document.querySelector('#signUpPage');
     oSignUpPage.style.display = "inline-block";
+    clearSignUpPage();
 
     var oEntryPage = document.querySelector('#createEntryPage');
     oEntryPage.style.display = "none";
+    clearEntryPage();
 
     var oEditUserPage = document.querySelector('#editUserPage');
     oEditUserPage.style.display = "none";
+    clearEditUserPage();
 
     fetch(`${URL}/roles`, {
         method: 'GET',
@@ -93,6 +106,15 @@ const loadSignUpPage = (e) => {
         });
     });
 };
+
+const clearSignUpPage = () => {
+    document.querySelector('#signUpUsername').value = "";
+    document.querySelector('#signUpPassword').value = "";
+    document.querySelector('#signUpEmail').value = "";
+    document.querySelector('#signUpEmployeeId').value = "";
+    document.querySelector('#signUpFirstname').value = "";
+    document.querySelector('#signUpLastname').value = "";
+}
 
 const signUpHandler = (e) => {
     e.preventDefault();
@@ -142,15 +164,19 @@ const renderCategories = (oSelect) => {
 const loadEntryPage = () => {
     var oLoginPage = document.querySelector('#loginPage');
     oLoginPage.style.display = "none";
+    clearLoginPage();
 
     var oSignUpPage = document.querySelector('#signUpPage');
     oSignUpPage.style.display = "none";
+    clearSignUpPage();
 
     var oEntryPage = document.querySelector('#createEntryPage');
     oEntryPage.style.display = "inline-block";
+    clearEntryPage();
 
     var oEditUserPage = document.querySelector('#editUserPage');
     oEditUserPage.style.display = "none";
+    clearEditUserPage();
 
     if (!checkJWT())
         loadLoginPage();
@@ -170,6 +196,13 @@ const loadEntryPage = () => {
 
     indexEntries();
 };
+
+const clearEntryPage = () => {
+    document.querySelector('#entryStartTimeDate').value = "";
+    document.querySelector('#entryStartTimeTime').value = "";
+    document.querySelector('#entryEndTimeDate').value = "";
+    document.querySelector('#entryEndTimeTime').value = "";
+}
 
 const createEntry = (e) => {
     e.preventDefault();
@@ -257,21 +290,34 @@ const renderEntries = () => {
 
 
 //user stuff
-const showUserPage = (e) => {
+const showEditUserPage = (e) => {
     var oLoginPage = document.querySelector('#loginPage');
     oLoginPage.style.display = "none";
+    clearLoginPage();
 
     var oSignUpPage = document.querySelector('#signUpPage');
     oSignUpPage.style.display = "none";
+    clearSignUpPage();
 
     var oEntryPage = document.querySelector('#createEntryPage');
     oEntryPage.style.display = "none";
+    clearEntryPage();
 
     var oEditUserPage = document.querySelector('#editUserPage');
     oEditUserPage.style.display = "inline-block";
+    clearEditUserPage();
 
     renderEditUserPage();
 };
+
+const clearEditUserPage = () => {
+    document.querySelector('#editUserUsername').value = "";
+    document.querySelector('#editUserPassword').value = "";
+    document.querySelector('#editUserEmail').value = "";
+    document.querySelector('#editUserEmployeeId').value = "";
+    document.querySelector('#editUserFirstname').value = "";
+    document.querySelector('#editUserLastname').value = "";
+}
 
 const renderEditUserPage = () => {
     if (oUser === undefined)
@@ -279,12 +325,41 @@ const renderEditUserPage = () => {
 
     var oUserForm = document.querySelector('#editUserForm');
 
+    document.querySelector('#editUserUsername').value = oUser.username;
+    document.querySelector('#editUserPassword').value = "";
+    document.querySelector('#editUserEmail').value = oUser.email;
+    document.querySelector('#editUserEmployeeId').value = oUser.employeeId;
+    document.querySelector('#editUserFirstname').value = oUser.firstname;
+    document.querySelector('#editUserLastname').value = oUser.lastname;
+/*
+    fetch(`${URL}/roles`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }).then((result) => {
+        result.json().then((result) => {
+            roles = result;
+            var oSelect document.querySelector('#editUserRole');
+            renderRoles(oSelect);
+            oSelect.setSelected(oUser.role.id);
 
-
-
-
+        });
+    });*/
+//TODO: implement User edit
 };
 
+const deleteUser = (e) => {
+    fetch(`${URL}/users/` + oUser.id, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': sJWT
+        }
+    }).then((result) => {
+        loadLoginPage();
+    });
+}
 
 
 
@@ -305,8 +380,11 @@ document.addEventListener('DOMContentLoaded', function(){
     const signUpButton = document.querySelector('#signupButton');
     signUpButton.addEventListener('click', loadSignUpPage)
 
-    const showUserButton = document.querySelector('#showUserButton');
-    showUserButton.addEventListener('click', showUserPage)
+    const showEditUserButton = document.querySelector('#showEditUserButton');
+    showEditUserButton.addEventListener('click', showEditUserPage)
+
+    const deleteUserButton = document.querySelector('#deleteUserButton');
+    deleteUserButton.addEventListener('click', deleteUser)
 
     const entryPageButton = document.querySelector('#entryPageButton');
     entryPageButton.addEventListener('click', loadEntryPage)

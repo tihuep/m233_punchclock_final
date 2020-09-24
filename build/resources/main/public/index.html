@@ -25,9 +25,9 @@
             <h2>Registrieren</h2>
             <input type="button" id="loginPageButton" value="Zurück">
             <form id="signUpForm">
-                <label for="signUpUsername">Username: </label>
+                <label for="signUpUsername">Username*: </label>
                 <input type="text" name="username" id="signUpUsername" required>
-                <label for="signUpPassword">Password: </label>
+                <label for="signUpPassword">Password*: </label>
                 <input type="password" name="password" id="signUpPassword" required>
                 <label for="signUpEmail">Email: </label>
                 <input type="email" name="email" id="signUpEmail">
@@ -37,23 +37,26 @@
                 <input type="text" name="firstname" id="signUpFirstname">
                 <label for="signUpLastname">Nachname: </label>
                 <input type="text" name="lastname" id="signUpLastname">
-                <label for="signUpRole">Rolle: </label>
+                <label for="signUpRole">Rolle*: </label>
                 <select name="role" id="signUpRole" required>
                     <option>Loading...</option>
                 </select>
+                <br><i>Pflichtfelder mit * markiert</i>
                 <input type="submit" value="Registrieren"/>
             </form>
         </div>
         <div id="createEntryPage">
             <h2>Einträge</h2>
             <input type="button" id="logoutButton" value="Logout">
+            <input type="button" id="showEditUserButton" value="User bearbeiten">
+            <input type="button" id="deleteUserButton" value="User löschen">
             <form id="createEntryForm">
-                <label for="entryStartTime">Startzeit: </label>
-                <input type="date" name="startTimeDate" id="entryStartTime" required>
-                <input type="time" name="startTimeTime" required>
-                <label for="entryEndTime">Endzeit: </label>
-                <input type="date" name="endTimeDate" id="entryEndTime" required>
-                <input type="time" name="endTimeTime" required>
+                <label for="entryStartTimeDate">Startzeit: </label>
+                <input type="date" name="startTimeDate" id="entryStartTimeDate" required>
+                <input type="time" name="startTimeTime" id="entryStartTimeTime" required>
+                <label for="entryEndTimeDate">Endzeit: </label>
+                <input type="date" name="endTimeDate" id="entryEndTimeDate" required>
+                <input type="time" name="endTimeTime" id="entryEndTimeTime" required>
                 <label for="entryCategory">Kategorie: </label>
                 <select name="category" id="entryCategory" required>
                     <option>Loading...</option>
@@ -76,29 +79,30 @@
                     </tr>
                 </tbody>
             </table>
-            <input type="button" id="showUserButton" value="User bearbeiten">
         </div>
         <div id="editUserPage">
-            <h2>user bearbeiten</h2>
+            <h2>User bearbeiten</h2>
+            <i>Nicht fertig implementiert</i>
             <input type="button" id="entryPageButton" value="Zurück">
             <input type="button" id="logoutButton2" value="Logout">
             <form id="editUserForm">
-                <label for="editUserFormUsername">Username: </label>
-                <input type="text" name="username" id="editUserFormUsername" required>
-                <label for="editUserFormPassword">Password: </label>
-                <input type="password" name="password" id="editUserFormPassword" required>
-                <label for="editUserFormEmail">Email: </label>
-                <input type="email" name="email" id="editUserFormEmail">
-                <label for="editUserFormEmployeeId">Mitarbeiter-ID: </label>
-                <input type="text" name="employeeId" id="editUserFormEmployeeId">
-                <label for="editUserFormFirstname">Vorname: </label>
-                <input type="text" name="firstname" id="editUserFormFirstname">
-                <label for="editUserFormLastname">Nachname: </label>
-                <input type="text" name="lastname" id="editUserFormLastname">
-                <label for="editUserFormRole">Rolle: </label>
-                <select name="role" id="editUserFormRole" required>
+                <label for="editUserUsername">Username*: </label>
+                <input type="text" name="username" id="editUserUsername" required>
+                <label for="editUserPassword">Password*: </label>
+                <input type="password" name="password" id="editUserPassword" required>
+                <label for="editUserEmail">Email: </label>
+                <input type="email" name="email" id="editUserEmail">
+                <label for="editUserEmployeeId">Mitarbeiter-ID: </label>
+                <input type="text" name="employeeId" id="editUserEmployeeId">
+                <label for="editUserFirstname">Vorname: </label>
+                <input type="text" name="firstname" id="editUserFirstname">
+                <label for="editUserLastname">Nachname: </label>
+                <input type="text" name="lastname" id="editUserLastname">
+                <label for="editUserRole">Rolle*: </label>
+                <select name="role" id="editUserRole" required>
                     <option>Loading...</option>
                 </select>
+                <br><i>Pflichtfelder mit * markiert</i>
                 <input type="submit" value="Ändern" disabled/>
             </form>
         </div>
