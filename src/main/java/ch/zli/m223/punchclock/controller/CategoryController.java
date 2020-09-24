@@ -1,5 +1,7 @@
 package ch.zli.m223.punchclock.controller;
 
+import ch.zli.m223.punchclock.config.WebConfiguration;
+import ch.zli.m223.punchclock.domain.ApplicationUser;
 import ch.zli.m223.punchclock.domain.Category;
 import ch.zli.m223.punchclock.service.CategoryService;
 import org.springframework.http.HttpStatus;
@@ -13,15 +15,18 @@ import java.util.List;
 @RequestMapping("/categories")
 public class CategoryController {
     private CategoryService categoryService;
+    private WebConfiguration webConfiguration;
 
-    public CategoryController(CategoryService categoryService){
+    public CategoryController(CategoryService categoryService, WebConfiguration webConfiguration){
         this.categoryService = categoryService;
+        this.webConfiguration = webConfiguration;
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Category createCategory(@Valid @RequestBody Category category){
-        return categoryService.createCategory(category);
+    public Category createCategory(@Valid @RequestBody Category category, @RequestHeader("Authorization") String token){
+        ApplicationUser applicationUser = webConfiguration.getUserFromToken(token);
+        return categoryService.createCategory(category, applicationUser);
     }
 
     @GetMapping
@@ -30,16 +35,17 @@ public class CategoryController {
         return categoryService.getAllCategories();
     }
 
-    @GetMapping("{id}")
+    @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public Category getSingleCategory(@PathVariable Long id){
         Category category = categoryService.getSingleCategory(id);
         return category;
     }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public void deleteCategory(@PathVariable Long id){
-        categoryService.deleteCategory(id);
+    public void deleteCategory(@PathVariable Long id, @RequestHeader("Authorization") String token){
+        ApplicationUser applicationUser = webConfiguration.getUserFromToken(token);
+        categoryService.deleteCategory(id, applicationUser);
     }
 }

@@ -1,6 +1,8 @@
 package ch.zli.m223.punchclock.service;
 
+import ch.zli.m223.punchclock.domain.ApplicationUser;
 import ch.zli.m223.punchclock.domain.UserRole;
+import ch.zli.m223.punchclock.error_handling.ForbiddenException;
 import ch.zli.m223.punchclock.repository.UserRoleRepository;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +16,13 @@ public class UserRoleService {
         this.userRoleRepository = userRoleRepository;
     }
 
-    public UserRole createUserRole(UserRole userRole){
+    public UserRole createUserRole(UserRole userRole, ApplicationUser user){
+        if (!user.getRole().getAdmin())
+            throw new ForbiddenException("Only admins allowed");
+        return userRoleRepository.saveAndFlush(userRole);
+    }
+
+    public UserRole createFirstUserRole(UserRole userRole){
         return userRoleRepository.saveAndFlush(userRole);
     }
 
@@ -26,7 +34,9 @@ public class UserRoleService {
         return userRoleRepository.findById(id).get();
     }
 
-    public void deleteUserRole(Long id){
+    public void deleteUserRole(Long id, ApplicationUser user){
+        if (!user.getRole().getAdmin())
+            throw new ForbiddenException("Only admins allowed");
         userRoleRepository.deleteById(id);
     }
 }

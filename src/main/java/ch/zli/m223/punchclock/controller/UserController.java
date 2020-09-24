@@ -1,6 +1,8 @@
 package ch.zli.m223.punchclock.controller;
 
+import ch.zli.m223.punchclock.config.WebConfiguration;
 import ch.zli.m223.punchclock.domain.ApplicationUser;
+import ch.zli.m223.punchclock.error_handling.ForbiddenException;
 import ch.zli.m223.punchclock.repository.ApplicationUserRepository;
 import ch.zli.m223.punchclock.service.ApplicationUserService;
 import org.glassfish.jersey.jaxb.internal.XmlJaxbElementProvider;
@@ -19,11 +21,14 @@ public class UserController {
 
     private ApplicationUserRepository applicationUserRepository;
     private ApplicationUserService applicationUserService;
+    private WebConfiguration webConfiguration;
 
     public UserController(ApplicationUserRepository applicationUserRepository,
-                          ApplicationUserService applicationUserService) {
+                          ApplicationUserService applicationUserService,
+                          WebConfiguration webConfiguration) {
         this.applicationUserRepository = applicationUserRepository;
         this.applicationUserService = applicationUserService;
+        this.webConfiguration = webConfiguration;
     }
 
     @PostMapping("/sign-up")
@@ -34,31 +39,36 @@ public class UserController {
 
     @GetMapping()
     @ResponseStatus(HttpStatus.OK)
-    public List<ApplicationUser> getAllUsers(){
-        return applicationUserService.getAllUsers();
+    public List<ApplicationUser> getAllUsers(@RequestHeader("Authorization") String token){
+        ApplicationUser applicationUser = webConfiguration.getUserFromToken(token);
+        return applicationUserService.getAllUsers(applicationUser);
     }
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public ApplicationUser getSingleUser(@PathVariable Long id){
-        return applicationUserService.getSingleUser(id);
+    public ApplicationUser getSingleUser(@PathVariable Long id, @RequestHeader("Authorization") String token){
+        ApplicationUser applicationUser = webConfiguration.getUserFromToken(token);
+        return applicationUserService.getSingleUser(id, applicationUser);
     }
 
-    @GetMapping("?username={username}")
+    @GetMapping("/username/{username}")
     @ResponseStatus(HttpStatus.OK)
-    public ApplicationUser getUserByUsername(@PathVariable String username){
-        return applicationUserService.getUserByUsername(username);
+    public ApplicationUser getUserByUsername(@PathVariable String username, @RequestHeader("Authorization") String token){
+        ApplicationUser applicationUser = webConfiguration.getUserFromToken(token);
+        return applicationUserService.getUserByUsername(username, applicationUser);
     }
 
-    @PutMapping("{id}")
+    @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public ApplicationUser editUser(@RequestBody ApplicationUser applicationUser, @PathVariable Long id){
-        return applicationUserService.editUser(applicationUser, id);
+    public ApplicationUser editUser(@RequestBody ApplicationUser applicationUser, @PathVariable Long id, @RequestHeader("Authorization") String token){
+        ApplicationUser applicationUser1 = webConfiguration.getUserFromToken(token);
+        return applicationUserService.editUser(applicationUser, id, applicationUser1);
     }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public void deleteUser(@PathVariable Long id){
-        applicationUserService.deleteUser(id);
+    public void deleteUser(@PathVariable Long id, @RequestHeader("Authorization") String token){
+        ApplicationUser applicationUser = webConfiguration.getUserFromToken(token);
+        applicationUserService.deleteUser(id, applicationUser);
     }
 }

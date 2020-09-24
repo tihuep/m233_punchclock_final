@@ -1,12 +1,12 @@
 package ch.zli.m223.punchclock.service;
 
+import ch.zli.m223.punchclock.domain.ApplicationUser;
 import ch.zli.m223.punchclock.domain.Category;
-import ch.zli.m223.punchclock.exception.ResourceNotFoundException;
+import ch.zli.m223.punchclock.error_handling.ForbiddenException;
 import ch.zli.m223.punchclock.repository.CategoryRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class CategoryService {
@@ -16,7 +16,9 @@ public class CategoryService {
         this.categoryRepository = categoryRepository;
     }
 
-    public Category createCategory(Category category){
+    public Category createCategory(Category category, ApplicationUser user){
+        if (!user.getRole().getAdmin())
+            throw new ForbiddenException("Only admins allowed");
         return categoryRepository.saveAndFlush(category);
     }
 
@@ -28,7 +30,9 @@ public class CategoryService {
         return categoryRepository.findById(id).get();
     }
 
-    public void deleteCategory(Long id){
+    public void deleteCategory(Long id, ApplicationUser user){
+        if (!user.getRole().getAdmin())
+            throw new ForbiddenException("Only admins allowed");
         categoryRepository.deleteById(id);
     }
 
