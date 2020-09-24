@@ -11,3 +11,19 @@ input[type='submit'], table {
 table {
     width: 40rem;
 }
+
+#loginPage {
+    display: block;
+}
+
+#signUpPage {
+    display: none;
+}
+
+#createEntryPage {
+    display: none;
+}
+
+#userPage {
+    display: none;
+}
