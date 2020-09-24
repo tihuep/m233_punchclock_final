@@ -63,13 +63,12 @@ public class UserRoleController {
     public UserRole getSingleUserRole(@PathVariable Long id){
         return userRoleService.getSingleUserRole(id);
     }
-/*
-    @GetMapping("/rolename/{rolename}")
+
+    /*@GetMapping("/rolename/{rolename}")
     @ResponseStatus(HttpStatus.OK)
     public UserRole getUserRoleByName(@PathVariable String rolename){
         return userRoleService.getUserRoleByName(rolename);
-    }
-*/
+    }*/
 
     /**
      * Delete Endpoint for UserRole

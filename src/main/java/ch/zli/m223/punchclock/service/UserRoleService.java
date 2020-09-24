@@ -6,6 +6,7 @@ import ch.zli.m223.punchclock.error_handling.ForbiddenException;
 import ch.zli.m223.punchclock.repository.UserRoleRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
 import java.util.List;
 
 @Service
@@ -33,6 +34,11 @@ public class UserRoleService {
     public UserRole getSingleUserRole(Long id){
         return userRoleRepository.findById(id).get();
     }
+
+    /*public UserRole getUserRoleByName(String rolename){
+        Collection<UserRole> userRoles = userRoleRepository.getUserRoleByName(rolename);
+        return (UserRole) userRoles.toArray()[0];
+    }*/
 
     public void deleteUserRole(Long id, ApplicationUser user){
         if (!user.getRole().getAdmin())
